@@ -82,6 +82,7 @@ function keyPressed(k){
       mouseButton = LEFT;
     else if( k.key === 'd' || k.key === ' ' )
       mouseButton = RIGHT;
+    else return;
   
   clickedX = floor((mouseX - offset.x)/squareDim);
   clickedY = floor((mouseY - offset.y)/squareDim);
