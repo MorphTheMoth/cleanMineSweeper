@@ -1,4 +1,8 @@
 # cleanMineSweeper
+
+you can play it [here](https://morphthemoth.github.io/cleanMineSweeper/)
+(use browser zoom to change screen size)
+
 i wanted to play minesweeper, but all the sites i found had something i did't like, so i decided to make my own.
 
 fetaure:
