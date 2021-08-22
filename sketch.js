@@ -5,7 +5,6 @@ const bomb = '#ed2846';
 const maybeBomb = '#FB9E55';
 
 
-
 class Point{
   constructor(x, y){
     this.x = x;
@@ -17,11 +16,13 @@ const CENTERED = true;
 
 const totX = 20;
 const totY = 10;
-const squareDim = 80; //ciao
+const squareDim = 80;
 const totBomb = 40;
 const offset = new Point(100, 100); //if CENTERED===true the value will be overwritten
 let squares = [];
 let clickedX, clickedY;
+let won = false;
+let lost = false;
 
 //-------------------------------------------------------//setup
 
@@ -58,7 +59,6 @@ function setup()
 
 function draw()
 {
-
   background(bgcolor);
   for( let i=0; i<totY; i++ )
     for( let j=0; j<totX; j++ )
@@ -69,45 +69,27 @@ function draw()
 
 function mousePressed()
 {
-
-
-  clickedX = floor((mouseX - offset.x)/squareDim);
-  clickedY = floor((mouseY - offset.y)/squareDim);
-
-  if( clickedY<0 || clickedY>=totY  ||  clickedX<0 || clickedX>=totX )
-    return;
-
-  if( mouseButton === LEFT )
-  {
-    squares[clickedY][clickedX].clicked();
-    if( squares[clickedY][clickedX].type === 0 )
-      selectAllSqaresAround(clickedY, clickedX);
-  }
-  else if ( mouseButton === RIGHT )
-  {
-    if( squares[clickedY][clickedX].isFound === false )
-      squares[clickedY][clickedX].rightClicked();
-    else
-      selectAllSqaresAround(clickedY, clickedX);
-  }
-
+  keyPressed(null);
 }
 
-
 function keyPressed(k){
+  
+  if( checkWin() )
+    return;
+  
   clickedX = floor((mouseX - offset.x)/squareDim);
   clickedY = floor((mouseY - offset.y)/squareDim);
-  console.log(k);
+  
   if( clickedY<0 || clickedY>=totY  ||  clickedX<0 || clickedX>=totX )
     return;
 
-  if( k.key === 'a' )
+  if( k.key === 'a' || mouseButton === LEFT )
   {
     squares[clickedY][clickedX].clicked();
     if( squares[clickedY][clickedX].type === 0 )
       selectAllSqaresAround(clickedY, clickedX);
   }
-  else if ( k.key === 'd' || k.key === ' ' )
+  else if ( k.key === 'd' || k.key === ' ' || mouseButton === RIGHT )
   {
     if( squares[clickedY][clickedX].isFound === false )
       squares[clickedY][clickedX].rightClicked();
@@ -209,14 +191,34 @@ function countBomb(y, x)
 }
 
 //-------------------------------------------------------//finish the game
-
+//(loss)
 function endGame()
 {
+  lost = true;
   for( let i=0; i<totY; i++ )
     for( let j=0; j<totX; j++ )
     {
       if( squares[i][j].type === "bomb" )
         squares[i][j].isFound = true;
+        squares[i][j].couldBeBomb = false;
     }
   let i;
+}
+
+function checkWin()
+{
+  if( won == true )
+    return true;
+  if( lost == true )
+    return false;
+  
+  for( let i=0; i<totY; i++ )
+    for( let j=0; j<totX; j++ )
+      if( squares[i][j].type == 'bomb' && squares[i][j].couldBeBomb || squares[i][j].type != 'bomb' && squares[i][j].isFound ) {
+        won = true;
+        alert("you won!\nUI is hard T.T");
+      }else{
+        return false;
+      }
+  return true;
 }
