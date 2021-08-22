@@ -69,7 +69,7 @@ function draw()
 
 function mousePressed()
 {
-  keyPressed(null);
+  keyPressed(false);
 }
 
 function keyPressed(k){
@@ -77,19 +77,25 @@ function keyPressed(k){
   if( checkWin() )
     return;
   
+  if( k )
+    if( k.key === 'a' )
+      mouseButton = LEFT;
+    else if( k.key === 'd' || k.key === ' ' )
+      mouseButton = RIGHT;
+  
   clickedX = floor((mouseX - offset.x)/squareDim);
   clickedY = floor((mouseY - offset.y)/squareDim);
   
   if( clickedY<0 || clickedY>=totY  ||  clickedX<0 || clickedX>=totX )
     return;
 
-  if( k.key === 'a' || mouseButton === LEFT )
+  if( mouseButton === LEFT )
   {
     squares[clickedY][clickedX].clicked();
     if( squares[clickedY][clickedX].type === 0 )
       selectAllSqaresAround(clickedY, clickedX);
   }
-  else if ( k.key === 'd' || k.key === ' ' || mouseButton === RIGHT )
+  else if ( mouseButton === RIGHT )
   {
     if( squares[clickedY][clickedX].isFound === false )
       squares[clickedY][clickedX].rightClicked();
