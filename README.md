@@ -21,4 +21,6 @@ fetaure:
 - you lose when you click a bomb.
 - you win when all the numbers are revealed and all the bombs are marked correctly.
 
+- after you win/lose you have to press F5 or refresh the page to retry. 
+
 ![img](https://cdn.discordapp.com/attachments/408965014079406102/878987809946480670/unknown.png)
