@@ -1,4 +1,4 @@
-# cleanMineSweeper
+# [cleanMineSweeper](https://morphthemoth.github.io/cleanMineSweeper/)
 
 you can play it [here](https://morphthemoth.github.io/cleanMineSweeper/)
 (use browser zoom to change screen size)
