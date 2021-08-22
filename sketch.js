@@ -219,13 +219,14 @@ function checkWin()
   if( lost == true )
     return false;
   
+  won = true;
   for( let i=0; i<totY; i++ )
     for( let j=0; j<totX; j++ )
-      if( squares[i][j].type == 'bomb' && squares[i][j].couldBeBomb || squares[i][j].type != 'bomb' && squares[i][j].isFound ) {
-        won = true;
-        alert("you won!\nUI is hard T.T");
-      }else{
+      if( !(squares[i][j].type == 'bomb' && squares[i][j].couldBeBomb || squares[i][j].type != 'bomb' && squares[i][j].isFound) ) {
+        won = false;
         return false;
       }
+  
+  alert("you won!\nUI is hard T.T");
   return true;
 }
